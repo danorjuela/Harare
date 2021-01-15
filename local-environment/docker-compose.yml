@@ -10,7 +10,7 @@ services:
       - SERVICES=es,s3
       - DEFAULT_REGION=eu-west-1
   database:
-    image: postgis/postgis:9.6-3.0-alpine
+    image: postgres
     container_name: pg-db
     environment:
       - POSTGRES_DB=Harare_db
