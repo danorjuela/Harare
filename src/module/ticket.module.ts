@@ -1,9 +1,10 @@
 import { Module } from '@nestjs/common';
-import { AppController } from '../controllers/Ticket.controller';
-import { AppService } from '../services/app.service';
+import { TicketController } from '../controllers/ticket.controller';
+import { TicketService } from '../services/ticket.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SnakeNamingStrategy } from "typeorm-naming-strategies";
 import { ConfigModule } from '@nestjs/config';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { TicketEntity } from '../models/database/ticket.entity';
 
 @Module({
   imports: [
@@ -15,16 +16,15 @@ import { ConfigModule } from '@nestjs/config';
       username: process.env.DATABASE_USER,
       password: process.env.DATABASE_PWD,
       database: process.env.DATABASE_NAME,
-      entities: ['dist/**/entities/**/*{.ts,.js}'],
+      entities: ['dist/models/database/**/*{.ts,.js}'],
       namingStrategy: new SnakeNamingStrategy(),
       synchronize: false,
       logging: [],
-      extra: {
-        max: 20,
-      }
+      extra: { max: 20 },
     }),
+    TypeOrmModule.forFeature([TicketEntity]),
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [TicketController],
+  providers: [TicketService],
 })
-export class AppModule {}
+export class TicketModule {}
