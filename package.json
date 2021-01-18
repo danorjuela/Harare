@@ -18,7 +18,16 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "add-migration": "ts-node ./node_modules/typeorm/cli.js migration:generate -f typeOrmConfig.ts -n ",
+    "add-empty-migration": "ts-node ./node_modules/typeorm/cli.js migration:create -f typeOrmConfig.ts -n ",
+    "update-database": "ts-node ./node_modules/typeorm/cli.js migration:run -f typeOrmConfig.ts",
+    "migration-revert": "ts-node ./node_modules/typeorm/cli.js migration:revert -f typeOrmConfig.ts",
+    "start-env:sh": "./local-environment/start.sh && npm run update-database",
+    "stop-env:sh": "./local-environment/stop.sh",
+    "start-env:ps": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command .\\local-environment\\start.ps1 && npm run update-database",
+    "stop-env:ps": "@powershell -NoProfile -ExecutionPolicy Unrestricted -Command .\\local-environment\\stop.ps1"
+ 
   },
   "dependencies": {
     "@nestjs/common": "^7.5.1",
